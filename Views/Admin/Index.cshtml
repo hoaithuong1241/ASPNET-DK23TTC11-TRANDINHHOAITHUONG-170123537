@@ -1,0 +1,174 @@
+﻿@model IEnumerable<JobPortal.Models.JobDetails>
+@{
+    ViewBag.Title = "Admin";
+    Layout = "~/Views/Shared/AdminLayout.cshtml";
+}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.0/css/all.min.css">
+
+<!-- Modern Admin Dashboard -->
+<div class="container-fluid px-4 py-4">
+    <!-- Welcome Header -->
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="bg-gradient-primary text-white rounded-3 p-4 shadow-sm">
+                <h2 class="mb-1 fw-bold">Hello, @Session["Admin"]</h2>
+                <p class="mb-0 opacity-75">Manage your job portal efficiently</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Quick Actions Grid -->
+    <div class="row g-4 mb-5">
+        <!-- Skills Card -->
+        <div class="col-lg-4 col-md-6">
+            <a href="@Url.Action("Skills","Admin")" class="text-decoration-none">
+                <div class="card h-100 border-0 shadow-sm hover-lift">
+                    <div class="card-body d-flex align-items-center">
+                        <div class="flex-shrink-0">
+                            <div class="bg-primary bg-opacity-10 rounded-3 p-3">
+                                <i class="fas fa-cogs fa-2x text-primary"></i>
+                            </div>
+                        </div>
+                        <div class="flex-grow-1 ms-3">
+                            <h5 class="mb-1 fw-semibold">Skills</h5>
+                            <p class="text-muted mb-0 small">Add / Remove skills</p>
+                        </div>
+                    </div>
+                </div>
+            </a>
+        </div>
+
+        <!-- Categories Card -->
+        <div class="col-lg-4 col-md-6">
+            <a href="@Url.Action("Categories","Admin")" class="text-decoration-none">
+                <div class="card h-100 border-0 shadow-sm hover-lift">
+                    <div class="card-body d-flex align-items-center">
+                        <div class="flex-shrink-0">
+                            <div class="bg-success bg-opacity-10 rounded-3 p-3">
+                                <i class="fas fa-folder-open fa-2x text-success"></i>
+                            </div>
+                        </div>
+                        <div class="flex-grow-1 ms-3">
+                            <h5 class="mb-1 fw-semibold">Categories</h5>
+                            <p class="text-muted mb-0 small">Add / Remove categories</p>
+                        </div>
+                    </div>
+                </div>
+            </a>
+        </div>
+
+        <!-- Add Admin Card -->
+        <div class="col-lg-4 col-md-6">
+            <a href="@Url.Action("AddAdmin","Admin")" class="text-decoration-none">
+                <div class="card h-100 border-0 shadow-sm hover-lift">
+                    <div class="card-body d-flex align-items-center">
+                        <div class="flex-shrink-0">
+                            <div class="bg-warning bg-opacity-10 rounded-3 p-3">
+                                <i class="fas fa-user-cog fa-2x text-warning"></i>
+                            </div>
+                        </div>
+                        <div class="flex-grow-1 ms-3">
+                            <h5 class="mb-1 fw-semibold">Add Admin</h5>
+                            <p class="text-muted mb-0 small">Create new admin accounts</p>
+                        </div>
+                    </div>
+                </div>
+            </a>
+        </div>
+
+        <!-- Verify Employer Card -->
+        <div class="col-lg-4 col-md-6">
+            <a href="@Url.Action("VerifyEmployer","Admin")" class="text-decoration-none">
+                <div class="card h-100 border-0 shadow-sm hover-lift">
+                    <div class="card-body d-flex align-items-center">
+                        <div class="flex-shrink-0">
+                            <div class="bg-info bg-opacity-10 rounded-3 p-3">
+                                <i class="fas fa-check-circle fa-2x text-info"></i>
+                            </div>
+                        </div>
+                        <div class="flex-grow-1 ms-3">
+                            <h5 class="mb-1 fw-semibold">Verify Employer</h5>
+                            <p class="text-muted mb-0 small">Review employer applications</p>
+                        </div>
+                    </div>
+                </div>
+            </a>
+        </div>
+
+        <!-- Messages Card -->
+        <div class="col-lg-4 col-md-6">
+            <a href="@Url.Action("ContactMessages","Admin")" class="text-decoration-none">
+                <div class="card h-100 border-0 shadow-sm hover-lift">
+                    <div class="card-body d-flex align-items-center">
+                        <div class="flex-shrink-0">
+                            <div class="bg-danger bg-opacity-10 rounded-3 p-3">
+                                <i class="fas fa-comment fa-2x text-danger"></i>
+                            </div>
+                        </div>
+                        <div class="flex-grow-1 ms-3">
+                            <h5 class="mb-1 fw-semibold">Messages</h5>
+                            <p class="text-muted mb-0 small">View contact messages</p>
+                        </div>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </div>
+
+    <!-- Trending Jobs Section -->
+    <div class="row">
+        <div class="col-12">
+            <div class="card border-0 shadow-sm">
+                <div class="card-header bg-transparent py-3">
+                    <h4 class="mb-0 fw-bold">
+                        <i class="fas fa-fire text-danger me-2"></i>Trending Jobs
+                    </h4>
+                </div>
+                <div class="card-body">
+                    @foreach (var item in Model.OrderByDescending(model => model.NumberOfViews).ThenByDescending(model => model.JobID).Take(3))
+                    {
+                        if (item.IsPublished && item.ApplicationDeadline >= DateTime.Now)
+                        {
+                            <div class="row mb-3 pb-3 border-bottom last-border-0">
+                                <div class="col-auto">
+                                    <img alt="CompanyLogo" src="data:image/png;base64,@Convert.ToBase64String(item.CompanyLogo)" class="rounded-3" width="64" height="64" />
+                                </div>
+                                <div class="col">
+                                    <h6 class="fw-semibold mb-1">@item.JobTitle</h6>
+                                    <div class="d-flex align-items-center text-muted small mb-2">
+                                        <span class="me-3">
+                                            <i class="fas fa-eye me-1"></i>@item.NumberOfViews views
+                                        </span>
+                                        <span>
+                                            <i class="fas fa-file-alt me-1"></i>@item.NumberOfApplications applications
+                                        </span>
+                                    </div>
+                                    @Html.ActionLink("View Details", "JobDetails", new { id = item.JobID }, new { @class = "btn btn-sm btn-outline-primary" })
+                                </div>
+                            </div>
+                        }
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Custom Styles -->
+<style>
+    .bg-gradient-primary {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    }
+
+    .hover-lift {
+        transition: transform 0.2s ease-in-out;
+    }
+
+    .hover-lift:hover {
+        transform: translateY(-4px);
+    }
+
+    .last-border-0:last-child {
+        border-bottom: 0 !important;
+    }
+</style>
