@@ -1,8 +1,154 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewBag.Title = "24hdev Job Portal – Where Careers Take Flight";
+    Layout = "~/Views/Shared/MainLayout.cshtml";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="d-center bg-light py-5">
+    <div class="container">
+        <div class="row justify-content-center align-items-center text-center mb-4">
+            <div class="col-md-8">
+                <h1 class="h1-heading display-4 fw-bold text-primary mb-3">
+                    Your Dream Job Is Just One Click Away!
+                </h1>
+                <p class="lead text-muted">
+                    Dive into 500 000+ opportunities waiting for heroes like you 🚀
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card shadow-lg">
+                    <div class="card-body p-4">
+                        <div class="row g-3 align-items-center">
+                            <div class="col-md-10">
+                                <input type="text" class="form-control form-control-lg" id="searchString" 
+                                       placeholder="Job title, keyword, or city – let’s go!" />
+                            </div>
+                            <div class="col-md-2">
+                                <button class="btn btn-primary btn-lg w-100" id="searchButton">
+                                    <i class="fas fa-search me-2"></i>Find Jobs
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
+
+<!-- Stats that make you smile -->
+<div class="container mt-5">
+    <div class="row text-center">
+        <div class="col-md-3 mb-4">
+            <div class="card h-100 border-0 shadow-sm hover-card">
+                <div class="card-body">
+                    <i class="fas fa-briefcase fa-3x text-primary mb-3"></i>
+                    <h3 class="counter">50 000+</h3>
+                    <p class="text-muted">Hot Jobs Ready for You</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3 mb-4">
+            <div class="card h-100 border-0 shadow-sm hover-card">
+                <div class="card-body">
+                    <i class="fas fa-building fa-3x text-success mb-3"></i>
+                    <h3 class="counter">10 000+</h3>
+                    <p class="text-muted">Top-Tier Companies Hiring</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3 mb-4">
+            <div class="card h-100 border-0 shadow-sm hover-card">
+                <div class="card-body">
+                    <i class="fas fa-users fa-3x text-info mb-3"></i>
+                    <h3 class="counter">1 000 000+</h3>
+                    <p class="text-muted">Talented Peers in Our Network</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3 mb-4">
+            <div class="card h-100 border-0 shadow-sm hover-card">
+                <div class="card-body">
+                    <i class="fas fa-handshake fa-3x text-warning mb-3"></i>
+                    <h3 class="counter">30 000+</h3>
+                    <p class="text-muted">Success Stories & Counting</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Trending career galaxies -->
+<div class="container mt-5 mb-5">
+    <h2 class="text-center mb-4">Explore Trending Career Galaxies</h2>
+    <div class="row g-4">
+        <div class="col-md-4">
+            <div class="card border-0 shadow-sm hover-card">
+                <div class="card-body">
+                    <i class="fas fa-laptop-code fa-2x text-primary mb-3"></i>
+                    <h4>Information Technology</h4>
+                    <p class="text-muted">15 000+ open roles – from AI to Zero-downtime heroes</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card border-0 shadow-sm hover-card">
+                <div class="card-body">
+                    <i class="fas fa-chart-line fa-2x text-success mb-3"></i>
+                    <h4>Finance & Banking</h4>
+                    <p class="text-muted">10 000+ positions – shape the future of money</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card border-0 shadow-sm hover-card">
+                <div class="card-body">
+                    <i class="fas fa-shopping-cart fa-2x text-info mb-3"></i>
+                    <h4>Sales & Marketing</h4>
+                    <p class="text-muted">8 000+ gigs – turn ideas into revenue rockets</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- CSS for playful hover -->
+<style>
+    .hover-card {
+        transition: transform 0.3s ease;
+    }
+    .hover-card:hover {
+        transform: translateY(-5px);
+    }
+    .counter {
+        font-weight: bold;
+        color: #333;
+    }
+</style>
+
+<script src="~/Scripts/jquery-3.7.1.min.js"></script>
+<script src="https://kit.fontawesome.com/your-code.js" crossorigin="anonymous"></script>
+<script>
+    $(document).ready(function () {
+        $("#searchButton").click(function () {
+            var searchString = $("#searchString").val();
+            var url = "@Url.Action("Jobs", "Home")?search=" + encodeURIComponent(searchString);
+            window.location.href = url;
+        });
+
+        $("#searchString").on("keyup", function(e) {
+            if (e.key === "Enter") {
+                $("#searchButton").click();
+            }
+        });
+
+        // Counter animation placeholder
+        $('.counter').each(function () {
+        
+        });
+    });
+</script>

@@ -1,0 +1,71 @@
+﻿@model JobPortal.Models.Login
+
+@{
+    ViewBag.Title = "Login";
+    Layout = "~/Views/Shared/MainLayout.cshtml";
+}
+
+<div class="container-fluid min-vh-100 d-flex align-items-center bg-light">
+    <div class="container">
+        <div class="row justify-content-center align-items-center">
+            <div class="col-md-4 d-none d-md-block">
+                <img src="~/Content/Static/role-collection-ot.png" class="img-fluid animate__animated animate__fadeInLeft" />
+            </div>
+            <div class="col-md-5">
+                <div class="card shadow-lg border-0 rounded-lg animate__animated animate__fadeInRight">
+                    <div class="card-body p-5">
+                        <h2 class="text-center mb-4 text-primary fw-bold">Welcome Back!</h2>
+                        <form action="/Home/Login" method="post" onsubmit="return validateForm();">
+                            @Html.AntiForgeryToken()
+                            <div class="form-floating mb-3">
+                                <input type="text" name="Username" id="Username" class="form-control" placeholder="Username" 
+                                    style="border-radius: 10px; border: 1px solid #ced4da;" />
+                                <label for="Username">Username</label>
+                                <span id="error-username" class="text-danger small"></span>
+                            </div>
+                            <div class="form-floating mb-3">
+                                <input type="password" name="Password" id="Password" class="form-control" placeholder="Password"
+                                    style="border-radius: 10px; border: 1px solid #ced4da;" />
+                                <label for="Password">Password</label>
+                                <span id="error-password" class="text-danger small"></span>
+                            </div>
+                            <div class="d-flex justify-content-between align-items-center mb-4">
+                                <div class="form-check">
+                                    <input type="checkbox" id="remember" class="form-check-input">
+                                    <label class="form-check-label small" for="remember" title="Coming soon">Remember Me</label>
+                                </div>
+                                <a href="#" class="text-primary small" style="text-decoration: none;" title="Coming soon">Forgot Password?</a>
+                            </div>
+                            <div class="d-grid gap-2">
+                                <button type="submit" class="btn btn-primary btn-lg" style="border-radius: 10px;">
+                                    <i class="fas fa-sign-in-alt me-2"></i>Login
+                                </button>
+                            </div>
+                        </form>
+                        <div class="text-center mt-4">
+                            <p class="mb-0 text-muted">Not a member? 
+                                <a href="@Url.Action("JobSeekerRegister","Home")" class="text-primary fw-bold" style="text-decoration:none">
+                                    Register now
+                                </a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+<script src="~/Scripts/MyScripts/main.js"></script>
+
+<script>
+    function preventBack() {
+        window.history.forward();
+    }
+    setTimeout("preventBack()", 0);
+    window.onunload = function () {
+        null;
+    }
+</script>
