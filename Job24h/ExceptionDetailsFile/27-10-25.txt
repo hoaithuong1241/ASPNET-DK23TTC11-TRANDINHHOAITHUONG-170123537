@@ -1,0 +1,25 @@
+-----------Exception Details on  27/10/2025 00:22:57-----------------
+-------------------------------------------------------------------------------------
+
+
+
+Log Written Date: 27/10/2025 00:22:57
+
+Error Line No : line 76
+
+Error Message: SqlException
+
+Exception Type: System.Data.SqlClient.SqlException
+
+Error Location : Cannot open database "JobPortal" requested by the login. The login failed.
+Login failed for user 'DESKTOP-NC78VN5\ADMIN'.
+
+ Error Page Url: https://localhost:44377/Home/Login
+
+User Host IP: 
+
+
+--------------------------------*End*------------------------------------------
+
+
+
